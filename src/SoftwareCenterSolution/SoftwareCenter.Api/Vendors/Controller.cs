@@ -95,9 +95,9 @@ public class Controller(IDocumentSession session) : ControllerBase
 public record CreateVendorRequest
 {
 
-    public string Name { get; init; } = string.Empty;
-    public string Url { get; init; } = string.Empty;
-    public CreateVendorPointOfContactRequest PointOfContact { get; init; } = new();
+    public string Name { get; set; } 
+    public string Url { get; set; } 
+    public CreateVendorPointOfContactRequest PointOfContact { get; set; } 
 }
 
 public class CreateVendorRequestValidator : AbstractValidator<CreateVendorRequest>

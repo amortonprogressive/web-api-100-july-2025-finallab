@@ -1,4 +1,5 @@
 ﻿using Marten;
+using SoftwareCenter.Api.Vendors;
 
 namespace SoftwareCenter.Api.CatalogItems;
 
@@ -29,6 +30,22 @@ public static class Api
             var response = entity.MapToResponse();
 
             return Results.Ok(response);
+        });
+        app.MapPut("/vendors/{id:guid}/point-of-contact", async (
+            Guid id, CreateVendorPointOfContactRequest request,
+            IDocumentSession session, ILookupVendors vendorLookups) =>
+        {
+                       
+            var vendor = await session.Query<CreateVendorResponse>().Where(v => v.Id == id)
+                .SingleOrDefaultAsync();
+            if (vendor == null) {
+                return Results.NotFound();
+            }
+            vendor.PointOfContact = request;
+            session.Update(vendor);
+            await session.SaveChangesAsync();
+            return Results.Ok(vendor);
+
         });
         return app;
     }

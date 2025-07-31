@@ -41,3 +41,14 @@ Content-Type: application/json
     "description": "Do words and stuff",
     "version": "2025"
 }
+
+###
+
+PUT {{SoftwareCenter.Api_HostAddress}}/vendors/{id}/point-of-contact
+Content-Type: application-json
+
+{
+  "name": "new name",
+  "phone": "new phone",
+  "email": "new email"
+}
